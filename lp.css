@@ -42,3 +42,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px}footer .wrap{displa
 .credit{font:12px var(--mono);color:var(--muted);margin-top:22px}
 @media(min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}}
 .rv{opacity:1}
+.lede,.step p,.sub,.status li,.tbl td,.tbl td:first-child{color:#ededed}
+.hero:after{background:linear-gradient(180deg,rgba(14,12,12,.7),rgba(14,12,12,.84) 45%,var(--bg) 96%)}
+.hero .lede{text-shadow:0 1px 14px #000}
+.note,.credit,.tbl th{color:#b5aca3}

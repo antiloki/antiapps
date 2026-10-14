@@ -56,3 +56,6 @@ footer{padding:120px 22px 60px;text-align:center;border-top:1px solid var(--line
 .feats{list-style:none;margin:16px 0 0;display:grid;gap:8px;max-width:520px}
 .feats li{position:relative;padding-left:20px;font-size:15px;color:#cfcdc7}
 .feats li:before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;background:var(--red);transform:rotate(45deg)}
+.app .copy{background:linear-gradient(180deg,rgba(8,8,10,.78),rgba(8,8,10,.86));padding:22px;border-radius:18px;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.small,.feats li,.after{color:#efefef}
+.after{color:#bdbdbd}
