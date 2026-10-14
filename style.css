@@ -28,7 +28,7 @@ h1 .w{display:inline-block}
 .big span{display:block}.red{color:var(--red2)}
 .app{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;border-top:1px solid var(--line)}
 .app .bg{position:absolute;inset:-15% 0;background-size:cover;background-position:center;filter:grayscale(.15) contrast(1.05);will-change:transform}
-.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.92) 0%,rgba(11,11,13,.55) 45%,rgba(11,11,13,.95) 100%)}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.92) 0%,rgba(11,11,13,.8) 45%,rgba(11,11,13,.95) 100%)}
 .app:before{content:attr(data-n);position:absolute;right:-2vw;bottom:-6vw;font:800 38vw/1 "Playfair Display",serif;color:rgba(210,48,44,.08);z-index:1;pointer-events:none}
 .inner{position:relative;z-index:2;width:100%;max-width:1150px;margin:0 auto;padding:90px 22px;display:grid;gap:34px;align-items:center}
 .icon{width:min(78vw,340px);margin:0 auto;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);background:#111}
@@ -52,7 +52,7 @@ footer{padding:120px 22px 60px;text-align:center;border-top:1px solid var(--line
 .app .inner,.app .copy{min-width:0;max-width:100%}
 .copy .btn{max-width:100%}
 .app:before{right:0}
-.small{max-width:520px}
+.small{max-width:520px;color:#d6d1c9;text-shadow:0 1px 12px #000}.feats li{text-shadow:0 1px 10px #000}
 .feats{list-style:none;margin:16px 0 0;display:grid;gap:8px;max-width:520px}
 .feats li{position:relative;padding-left:20px;font-size:15px;color:#cfcdc7}
 .feats li:before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;background:var(--red);transform:rotate(45deg)}
