@@ -1,0 +1,49 @@
+:root{--bg:#0b0b0d;--fg:#ecebe6;--mut:#8a8a90;--red:#d2302c;--red2:#ff4a3d;--line:#222228}
+*{box-sizing:border-box;margin:0;padding:0}html{background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.5 Inter,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}em{font-style:italic;color:var(--red2)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#7a0e0c,var(--red2));z-index:60}
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;backdrop-filter:blur(10px);background:rgba(11,11,13,.6);border-bottom:1px solid var(--line)}
+.logo{font-weight:700;letter-spacing:-.02em;display:flex;gap:8px;align-items:center}.logo b{color:var(--red2)}
+.drop{width:10px;height:13px;background:var(--red);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;display:inline-block}
+.navcta{font-size:13px;border:1px solid var(--line);padding:6px 12px;border-radius:999px;color:var(--mut)}
+.hero{min-height:100svh;position:relative;display:grid;place-items:center;padding:90px 20px 60px;overflow:hidden}
+.mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;opacity:.28;filter:grayscale(.3) contrast(1.1)}
+.mosaic img{width:100%;height:100%;object-fit:cover}
+.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(11,11,13,.55),var(--bg) 75%)}
+.hero-txt{position:relative;z-index:2;max-width:900px;text-align:center}
+.kicker{color:var(--red2);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px}
+h1{font:800 clamp(40px,9vw,104px)/.98 "Playfair Display",serif;letter-spacing:-.02em}
+h1 .w{display:inline-block}
+.sub{color:var(--mut);max-width:520px;margin:22px auto 30px;font-size:clamp(15px,2.2vw,18px)}
+.btn{display:inline-block;background:var(--red);color:#fff;font-weight:600;padding:12px 20px;border-radius:10px;font-size:15px;transition:transform .2s,background .2s}
+.btn:hover{background:var(--red2);transform:translateY(-2px)}
+.btn.ghost{background:transparent;border:1px solid #3a3a42;color:var(--mut)}
+.scrollhint{position:absolute;bottom:22px;left:50%;width:22px;height:36px;border:1px solid #444;border-radius:12px;z-index:2;transform:translateX(-50%)}
+.scrollhint span{position:absolute;left:50%;top:7px;width:3px;height:7px;background:var(--red2);border-radius:2px;transform:translateX(-50%);animation:sh 1.6s infinite}
+@keyframes sh{to{transform:translate(-50%,12px);opacity:0}}
+.manifesto{min-height:80vh;display:grid;place-items:center;padding:80px 24px}
+.big{font:800 clamp(32px,6.5vw,76px)/1.05 "Playfair Display",serif;text-align:center;max-width:1000px;letter-spacing:-.02em}
+.big span{display:block}.red{color:var(--red2)}
+.app{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;border-top:1px solid var(--line)}
+.app .bg{position:absolute;inset:-15% 0;background-size:cover;background-position:center;filter:grayscale(.15) contrast(1.05);will-change:transform}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.92) 0%,rgba(11,11,13,.55) 45%,rgba(11,11,13,.95) 100%)}
+.app:before{content:attr(data-n);position:absolute;right:-2vw;bottom:-6vw;font:800 38vw/1 "Playfair Display",serif;color:rgba(210,48,44,.08);z-index:1;pointer-events:none}
+.inner{position:relative;z-index:2;width:100%;max-width:1150px;margin:0 auto;padding:90px 22px;display:grid;gap:34px;align-items:center}
+.icon{width:min(78vw,340px);margin:0 auto;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);background:#111}
+.icon img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.icon figcaption{background:var(--red);color:#111;font:800 26px "Playfair Display",serif;padding:10px 18px}
+.num{color:var(--red2);font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+h2{font:800 clamp(48px,10vw,110px)/1 "Playfair Display",serif;letter-spacing:-.03em;margin:8px 0 14px}
+.line{font-size:clamp(20px,3.4vw,30px);font-weight:600;letter-spacing:-.01em;margin-bottom:8px}
+.small{color:var(--mut);max-width:440px}
+.after{font-size:12px;color:#66666c;margin:18px 0 22px;font-style:normal}
+.grid-sec{padding:110px 22px;text-align:center}.grid-sec h3{font:800 clamp(30px,5vw,54px) "Playfair Display",serif;margin-bottom:40px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:760px;margin:0 auto}
+.tile{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:13px;color:var(--mut)}
+.tile img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:22%;box-shadow:0 10px 30px rgba(0,0,0,.6);transition:transform .3s}
+.tile:hover img{transform:translateY(-4px) rotate(-2deg)}
+footer{padding:120px 22px 60px;text-align:center;border-top:1px solid var(--line)}footer .small{margin:24px auto 0;font-size:13px}
+@media(min-width:860px){.inner{grid-template-columns:1fr 1.1fr;gap:70px}.app:nth-of-type(even) .icon{order:2}.icon{width:100%;max-width:440px}.grid{grid-template-columns:repeat(5,1fr)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
