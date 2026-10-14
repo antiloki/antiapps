@@ -48,7 +48,7 @@ footer{padding:120px 22px 60px;text-align:center;border-top:1px solid var(--line
 @media(min-width:860px){.inner{grid-template-columns:1fr 1.1fr;gap:70px}.app:nth-of-type(even) .icon{order:2}.icon{width:100%;max-width:440px}.grid{grid-template-columns:repeat(5,1fr)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.intro{position:absolute;inset:0;z-index:1;overflow:hidden;background:#000}
+.intro{position:absolute;inset:0;z-index:2;overflow:hidden;background:#000}
 .slide{position:absolute;inset:0;opacity:0;overflow:hidden}
 .slide img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;filter:contrast(1.15) brightness(.85);will-change:transform}
 .glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(210,48,44,.45),transparent 65%);mix-blend-mode:screen;opacity:0}
