@@ -71,3 +71,8 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px}footer .wrap{displa
 .hero .fold .plate img{object-position:center 48%}.hero .fold::before{width:min(360px,94%);height:58%;top:56%}}
 @media(prefers-reduced-motion:reduce){.scrollcue i{animation:none;opacity:.7}}
 .statement em,.step b,.eyebrow,.tbl td.us:before{color:var(--ember)}
+
+/* v7: small plate behind text, soft elliptical fade */
+.hero .fold .plate,.hero .fold .plate{-webkit-mask-image:none;mask-image:none;left:0!important;right:0!important;width:auto!important;transform:none!important}
+.hero .fold .plate img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:auto;height:auto;max-width:min(980px,104vw);max-height:62svh;object-fit:contain;-webkit-mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 30%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.15) 85%,transparent 100%);mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 30%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.15) 85%,transparent 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%}
+@media(max-width:640px){.hero .fold .plate img{max-width:112vw;max-height:58svh;top:50%}}
