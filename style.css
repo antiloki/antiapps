@@ -69,6 +69,7 @@ footer{padding:120px 22px 60px;text-align:center;border-top:1px solid var(--line
 
 /* v7 */
 .app .bg{-webkit-mask-image:none;mask-image:none}
-.app .bg img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:auto;height:auto;max-width:min(1000px,104vw);max-height:70svh;object-fit:contain;-webkit-mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 30%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.15) 85%,transparent 100%);mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 30%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.15) 85%,transparent 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%}
+.app .bg img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:auto;height:auto;max-width:min(1000px,104vw);max-height:70svh;object-fit:contain;-webkit-mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 45%,rgba(0,0,0,.75) 68%,rgba(0,0,0,.25) 88%,transparent 100%);mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 45%,rgba(0,0,0,.75) 68%,rgba(0,0,0,.25) 88%,transparent 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%}
 @media(min-width:860px){.app .bg img{left:62%}}
 @media(max-width:640px){.app .bg img{max-width:112vw;max-height:55svh;top:58%}}
+.app .inner:before{opacity:.6}
