@@ -1,5 +1,5 @@
 :root{--bg:#0b0b0d;--fg:#ecebe6;--mut:#8a8a90;--red:#d2302c;--red2:#ff4a3d;--line:#222228}
-*{box-sizing:border-box;margin:0;padding:0}html{background:var(--bg)}
+*{box-sizing:border-box;margin:0;padding:0}html{background:var(--bg);overflow-x:clip}html,body{max-width:100%}
 body{background:var(--bg);color:var(--fg);font:400 16px/1.5 Inter,system-ui,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}em{font-style:italic;color:var(--red2)}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -47,3 +47,20 @@ h2{font:800 clamp(48px,10vw,110px)/1 "Playfair Display",serif;letter-spacing:-.0
 footer{padding:120px 22px 60px;text-align:center;border-top:1px solid var(--line)}footer .small{margin:24px auto 0;font-size:13px}
 @media(min-width:860px){.inner{grid-template-columns:1fr 1.1fr;gap:70px}.app:nth-of-type(even) .icon{order:2}.icon{width:100%;max-width:440px}.grid{grid-template-columns:repeat(5,1fr)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.intro{position:absolute;inset:0;z-index:1;overflow:hidden;background:#000}
+.slide{position:absolute;inset:0;opacity:0;overflow:hidden}
+.slide img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;filter:contrast(1.15) brightness(.85);will-change:transform}
+.glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(210,48,44,.45),transparent 65%);mix-blend-mode:screen;opacity:0}
+.flicker{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+.hero .mosaic{z-index:0}.hero:after{z-index:1}.hero-txt{z-index:3}.scrollhint{z-index:3}
+.hero.done .intro{pointer-events:none}
+.iconwrap{will-change:transform}
+.app .inner,.app .copy{min-width:0;max-width:100%}
+.copy .btn{max-width:100%}
+.app:before{right:0}
+@keyframes drift{0%{transform:scale(1.08) translate(0,0)}50%{transform:scale(1.14) translate(-2%,1.5%)}100%{transform:scale(1.08) translate(0,0)}}
+.app .bg-in{position:absolute;inset:0;background:inherit;background-size:cover;background-position:center;animation:drift 22s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.5}50%{opacity:.85}}
+.app .veil:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 70%,rgba(210,48,44,.18),transparent 60%);animation:breathe 6s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.intro{display:none}}
