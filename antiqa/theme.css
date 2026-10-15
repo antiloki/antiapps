@@ -1,0 +1,16 @@
+/* antiqa palette, after Bosch's Garden: moss green, flesh pink. Overrides lp.css for antiqa pages only. */
+:root{--bg:#121a15;--panel:#19241d;--rule:#2a3a2f;--rule2:#36493c;--ink:#ebf1ea;--dim:#a6b8aa;--muted:#869a8b;--ember:#e07a9a;--ember2:#f4a3bc;--soft:rgba(224,122,154,.16);--btn-ink:#1f0d14}
+html,body{background:var(--bg);color:var(--ink)}
+.top{background:rgba(18,26,21,.88)}
+.top .cta,.btn.ember,.btn:not(.ghost){background:var(--ember);border-color:var(--ember);color:var(--btn-ink)}
+.top .cta:hover,.btn:not(.ghost):hover{filter:brightness(.92)}
+.btn.ghost{border-color:var(--rule2);color:var(--ink)}
+.hero:after{background:linear-gradient(180deg,rgba(18,26,21,.7),rgba(18,26,21,.84) 45%,var(--bg) 96%)}
+.hero .fold::before{background:radial-gradient(ellipse at 50% 58%,rgba(18,26,21,.64) 0%,rgba(18,26,21,.36) 54%,rgba(18,26,21,0) 78%)}
+.lede,.step p,.sub,.status li,.tbl td,.tbl td:first-child{color:var(--ink)}
+.hero .fold .lede b{color:#fff}
+.note,.credit,.tbl th{color:var(--dim)}
+.eyebrow,.hero .eyebrow,h1 em,.hero h1 em,.statement em,.step b,.tbl td.us:before,.status li code{color:var(--ember2)}
+.scrollcue i{background:linear-gradient(var(--ember2),transparent)}
+a:hover{color:var(--ember2)}
+footer a{color:var(--dim)}

@@ -1,0 +1,16 @@
+/* antihunt palette, after Bruegel's Harvesters: wheat gold, olive field, a drop of red. Overrides lp.css for antihunt pages only. */
+:root{--bg:#1b1c14;--panel:#25261b;--rule:#3a3b2b;--rule2:#4a4b37;--ink:#efead6;--dim:#b3ad94;--muted:#8d8873;--ember:#d4a72c;--ember2:#e8c25a;--soft:rgba(212,167,44,.16);--btn-ink:#16130a}
+html,body{background:var(--bg);color:var(--ink)}
+.top{background:rgba(27,28,20,.88)}
+.top .cta,.btn.ember,.btn:not(.ghost){background:var(--ember);border-color:var(--ember);color:var(--btn-ink)}
+.top .cta:hover,.btn:not(.ghost):hover{filter:brightness(.92)}
+.btn.ghost{border-color:var(--rule2);color:var(--ink)}
+.hero:after{background:linear-gradient(180deg,rgba(27,28,20,.7),rgba(27,28,20,.84) 45%,var(--bg) 96%)}
+.hero .fold::before{background:radial-gradient(ellipse at 50% 58%,rgba(27,28,20,.64) 0%,rgba(27,28,20,.36) 54%,rgba(27,28,20,0) 78%)}
+.lede,.step p,.sub,.status li,.tbl td,.tbl td:first-child{color:var(--ink)}
+.hero .fold .lede b{color:#fff}
+.note,.credit,.tbl th{color:var(--dim)}
+.eyebrow,.hero .eyebrow,h1 em,.hero h1 em,.statement em,.step b,.tbl td.us:before,.status li code{color:var(--ember2)}
+.scrollcue i{background:linear-gradient(var(--ember2),transparent)}
+a:hover{color:var(--ember2)}
+footer a{color:var(--dim)}

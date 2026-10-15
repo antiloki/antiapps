@@ -1,0 +1,16 @@
+/* antipost palette, after Goya's Saturn: black-red void, deep crimson. Overrides lp.css for antipost pages only. */
+:root{--bg:#1a1112;--panel:#251718;--rule:#3d2527;--rule2:#4f3033;--ink:#f1e4e2;--dim:#bfa3a3;--muted:#957b7c;--ember:#a8202c;--ember2:#ef6a6a;--soft:rgba(168,32,44,.16);--btn-ink:#fff1ef}
+html,body{background:var(--bg);color:var(--ink)}
+.top{background:rgba(26,17,18,.88)}
+.top .cta,.btn.ember,.btn:not(.ghost){background:var(--ember);border-color:var(--ember);color:var(--btn-ink)}
+.top .cta:hover,.btn:not(.ghost):hover{filter:brightness(.92)}
+.btn.ghost{border-color:var(--rule2);color:var(--ink)}
+.hero:after{background:linear-gradient(180deg,rgba(26,17,18,.7),rgba(26,17,18,.84) 45%,var(--bg) 96%)}
+.hero .fold::before{background:radial-gradient(ellipse at 50% 58%,rgba(26,17,18,.64) 0%,rgba(26,17,18,.36) 54%,rgba(26,17,18,0) 78%)}
+.lede,.step p,.sub,.status li,.tbl td,.tbl td:first-child{color:var(--ink)}
+.hero .fold .lede b{color:#fff}
+.note,.credit,.tbl th{color:var(--dim)}
+.eyebrow,.hero .eyebrow,h1 em,.hero h1 em,.statement em,.step b,.tbl td.us:before,.status li code{color:var(--ember2)}
+.scrollcue i{background:linear-gradient(var(--ember2),transparent)}
+a:hover{color:var(--ember2)}
+footer a{color:var(--dim)}
