@@ -1,0 +1,18 @@
+/* antiDrive palette, sampled from the Raft of the Medusa icon and plate:
+   stone greys, parchment highlights and the blood red of the engraving. Overrides lp.css for antiDrive pages only. */
+:root{--bg:#1c1b1a;--panel:#262523;--rule:#3a3835;--rule2:#4a4743;--ink:#e5e2d8;--dim:#a09f99;--muted:#8f8e88;--ember:#b3171f;--ember2:#e0787b;--soft:rgba(179,23,31,.16);--btn-ink:#f4f1ea}
+html,body{background:var(--bg);color:var(--ink)}
+.top{background:rgba(28,27,26,.88)}
+.top .cta,.btn.ember,.btn:not(.ghost){background:var(--ember);border-color:var(--ember);color:var(--btn-ink)}
+.top .cta:hover,.btn:not(.ghost):hover{background:#9e1a20}
+.btn.ghost{border-color:var(--rule2);color:var(--ink)}
+.hero:after{background:linear-gradient(180deg,rgba(18,17,16,.7),rgba(18,17,16,.84) 45%,var(--bg) 96%)}
+.hero .fold::before{background:radial-gradient(ellipse at 50% 58%,rgba(28,27,26,.64) 0%,rgba(28,27,26,.36) 54%,rgba(28,27,26,0) 78%)}
+.lede,.step p,.sub,.status li,.tbl td,.tbl td:first-child{color:var(--ink)}
+.hero .fold .lede b{color:#f4f1ea}
+.note,.credit,.tbl th{color:var(--dim)}
+.eyebrow,.hero .eyebrow,h1 em,.hero h1 em,.statement em,.step b,.tbl td.us:before,.status li code{color:var(--ember2)}
+.scrollcue i{background:linear-gradient(var(--ember2),transparent)}
+a:hover{color:var(--ember2)}
+footer a{color:var(--dim)}
+.body a,.fine a,.src a{color:var(--ember2)}.toc a:hover{color:var(--ember2)}
