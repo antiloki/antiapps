@@ -1,0 +1,17 @@
+{
+  "name": "antidrive-motion",
+  "private": true,
+  "description": "Remotion source for the antiDrive landing feature clips. Marketing-site render tool only; the output is static video files.",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.300",
+    "@remotion/renderer": "4.0.300",
+    "@remotion/bundler": "4.0.300",
+    "remotion": "4.0.300",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
