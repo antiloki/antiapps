@@ -1,0 +1,57 @@
+/* antiDrive motion: elements build in as they enter the viewport. IntersectionObserver + CSS only.
+   Initial hidden states apply only under html.m, which motion.js sets when motion is allowed. */
+:root{--ease:cubic-bezier(.2,.75,.2,1)}
+/* headlines: word mask */
+.wd{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em}
+.wd>span{display:inline-block}
+html.m .split .wd>span{transform:translateY(105%);transition:transform .8s var(--ease);transition-delay:calc(var(--i,0)*55ms)}
+html.m .split.in .wd>span{transform:none}
+/* generic build-in */
+html.m .bi{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i,0)*70ms)}
+html.m .bi.in{opacity:1;transform:none}
+/* table rows slide from the left, the red edge draws down */
+html.m .cmp-r.bi{transform:translateX(-14px)}
+html.m .cmp-r.bi.in{transform:none}
+html.m .cmp-r .mark{box-shadow:inset 0 0 0 var(--ember);transition:box-shadow .5s var(--ease) .25s,background-color .5s}
+html.m .cmp-r.in .mark{box-shadow:inset 2px 0 0 var(--ember)}
+/* hero: engraving draw-in, then gentle parallax (transform set by JS) */
+html.m .hero .plate img{clip-path:inset(0 0 100% 0);filter:grayscale(1) contrast(1.4) blur(3px);opacity:.2;transition:clip-path 1.8s var(--ease),filter 2.2s ease,opacity 1.6s ease}
+html.m .hero.in .plate img{clip-path:inset(0 0 0 0);filter:none;opacity:1}
+.hero .plate{will-change:translate}
+html.m .hero .eyebrow,html.m .hero .lede,html.m .hero .cta{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+html.m .hero.in .eyebrow{opacity:1;transform:none;transition-delay:.1s}
+html.m .hero.in .lede{opacity:1;transform:none;transition-delay:.55s}
+html.m .hero.in .cta{opacity:1;transform:none;transition-delay:.75s}
+/* nav polish */
+.top{transition:background-color .3s,box-shadow .3s,padding .3s}
+.top.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.35);padding-top:9px;padding-bottom:9px}
+.top .links a{position:relative}
+.top .links a:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--ember2);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.top .links a:hover:after{transform:scaleX(1)}
+/* buttons: lift and a short shine */
+.btn,.top .cta{position:relative;overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s,background-color .2s}
+.btn:hover,.top .cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(179,23,31,.28)}
+.btn.ghost:hover{box-shadow:none;border-color:var(--ember2)}
+.btn:not(.ghost):after,.top .cta:after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-18deg);transition:left .6s var(--ease)}
+.btn:not(.ghost):hover:after,.top .cta:hover:after{left:120%}
+/* feature tour */
+.tour{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);gap:34px;margin-top:34px;align-items:start}
+.tour-steps{display:grid;gap:8px}
+.tstep{border:1px solid var(--rule);background:var(--panel);border-radius:14px;padding:14px 16px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;width:100%;position:relative;overflow:hidden;transition:border-color .3s,background-color .3s}
+.tstep h3{font:700 17px var(--display);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.tstep h3 b{font:500 11px var(--mono);color:var(--ember2)}
+.tstep ul{list-style:none;display:grid;gap:5px;margin-top:0;max-height:0;overflow:hidden;transition:max-height .5s var(--ease),margin-top .4s}
+.tstep li{color:var(--dim);font-size:14.5px;line-height:1.5;padding-left:14px;position:relative;opacity:0;transform:translateY(8px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.tstep li:before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--ember)}
+.tstep.on{border-color:var(--ember);background:linear-gradient(0deg,var(--soft),var(--soft)),var(--panel)}
+.tstep.on ul{max-height:340px;margin-top:10px}
+.tstep.on li{opacity:1;transform:none}
+.tstep .bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--ember)}
+.tstep.on .bar{animation:tbar var(--dur,6s) linear forwards}
+.tour.paused .tstep.on .bar{animation-play-state:paused}
+@keyframes tbar{to{width:100%}}
+.tour-stage{position:sticky;top:84px;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--panel);aspect-ratio:8/5;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.tour-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease}
+.tour-stage video.on{opacity:1}
+@media(max-width:860px){.tour{grid-template-columns:1fr}.tour-stage{position:relative;top:0;order:-1}}
+@media(prefers-reduced-motion:reduce){.tstep li{opacity:1;transform:none}.tstep ul{transition:none}.tstep.on .bar{animation:none;width:100%}.btn:after,.top .cta:after{display:none}}
