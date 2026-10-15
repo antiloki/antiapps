@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>antiQA docs · antiApps</title><meta name="description" content="How to use antiQA 0.0.8: packs, stages, CLI options, reports and exit codes.">
+<link rel="icon" href="../../img/antiqa-icon.webp"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../lp.css?v=7b"><link rel="stylesheet" href="../theme.css?v=2"></head><body>
+<nav class="top"><a class="brand" href="../"><img src="../../img/antiqa-icon.webp" alt="">antiQA</a><div class="links"><a class="hide" href="../#how">How it works</a><a class="hide" href="../#compare">Compared</a><a href="./">Docs</a><a href="../../">antiApps</a></div><a class="cta" href="../#download">Download 0.0.8</a></nav>
+<header class="dh"><div class="wrap"><span class="eyebrow">antiQA · docs · 0.0.8</span><h1>How to use <em>antiQA.</em></h1><p class="lede">From a running app to a bug report an agent can fix.</p></div></header>
+<div class="wrap doc"><nav class="toc"><b>Docs</b><a href="#overview">Overview</a><a href="#install">Install</a><a href="#quickstart">Quick start</a><a href="#concepts">Packs, stories and plays</a><a href="#stages">The six stages</a><a href="#modes">Choosing how the app starts</a><a href="#agents">Agents</a><a href="#reports">Reports and exit codes</a><a href="#cli">CLI reference</a><a href="#trouble">Troubleshooting</a><a href="#faq">FAQ</a></nav><div class="body"><section id="overview"><p class="eyebrow">01</p><h2>Overview</h2><p>antiQA (QA Anything) is an end-to-end tester for any app. It reads a <b>pack</b> that describes your product, plays your user stories in a real browser, crawls for what the stories missed, runs accessibility checks, and writes a bug report a coding agent can pick up.</p>
+<p>It is one offline binary, <code>antiqa</code>, written in Rust. The old command name <code>qaa</code> still works and runs the same binary. The core never names a product: everything product-specific lives in its pack.</p>
+<div class="tip">antiQA is alpha. The current version is 0.0.8, and the release is a Linux x86_64 build.</div></section><section id="install"><p class="eyebrow">02</p><h2>Install</h2><p>Download the Linux build from the <a href="../#download">download section</a>, make it executable and put it on your <code>PATH</code>.</p>
+<pre><code>chmod +x antiqa
+./antiqa --version</code></pre>
+<p>macOS and Windows builds were not made for 0.0.8. <span class="plan">planned</span></p>
+<h3>Build from source</h3><pre><code>rustup target add x86_64-unknown-linux-musl
+cargo build --release --target x86_64-unknown-linux-musl</code></pre></section><section id="quickstart"><p class="eyebrow">03</p><h2>Quick start</h2><ol><li>Start your app, for example on <code>http://127.0.0.1:8080</code>.</li>
+<li>Draft a pack from it:<pre><code>antiqa onboard --name myapp --url http://127.0.0.1:8080 --repo ../myapp</code></pre></li>
+<li>Run every stage against the running app:<pre><code>antiqa --product myapp --url http://127.0.0.1:8080</code></pre></li>
+<li>Open <code>reports/</code>. Read <code>BUG-REPORT.md</code>, and hand <code>evidence.zip</code> to whoever fixes it.</li></ol>
+<p><code>antiqa dashboard</code> serves your local runs for the antiQA window.</p></section><section id="concepts"><p class="eyebrow">04</p><h2>Packs, stories and plays</h2><p>A pack lives in <code>packs/&lt;product&gt;/</code>. It holds:</p>
+<ul><li><b>A manifest</b> that names the product and where its parts are.</li>
+<li><b>STUDY.md</b>, a written study of the app. The study gate checks it has the required sections.</li>
+<li><b>User stories</b> and the coverage checklist.</li>
+<li><b>Plays</b>, the steps that act out each story, in the <code>qaa.play/2</code> format.</li>
+<li><b>A harness</b> that starts or attaches to the app and checks its health.</li></ul>
+<p>A template pack is included for adding a new app.</p></section><section id="stages"><p class="eyebrow">05</p><h2>The six stages</h2><p>Pick a stage with <code>--stage</code>. The default is <code>all</code>, which runs the six in order. Each stage is a gate: if it fails, the run stops with exit code 2.</p>
+<table><tr><th>Stage</th><th>What it does</th></tr>
+<tr><td><code>study</code></td><td><code>packs/&lt;product&gt;/STUDY.md</code> must have the required sections.</td></tr>
+<tr><td><code>stories</code></td><td>Checks the story schema, the plays and the coverage checklist.</td></tr>
+<tr><td><code>harness</code></td><td>Starts or attaches to the app, checks health, and refuses forbidden writes.</td></tr>
+<tr><td><code>run</code></td><td>Plays the stories, crawls the app and runs accessibility checks on each palette.</td></tr>
+<tr><td><code>triage</code></td><td>Classifies every miss.</td></tr>
+<tr><td><code>report</code></td><td>Writes <code>BUG-REPORT.md</code> and <code>evidence.zip</code>.</td></tr></table></section><section id="modes"><p class="eyebrow">06</p><h2>Choosing how the app starts</h2><table><tr><th>Flag</th><th>Use it when</th></tr>
+<tr><td><code>--url &lt;address&gt;</code></td><td>The app is already running. antiQA will not stop it.</td></tr>
+<tr><td><code>--core &lt;path&gt; --fe &lt;path&gt;</code></td><td>You have checkouts the pack knows how to start.</td></tr>
+<tr><td><code>--stub</code></td><td>Use the pack's harness stand-in. Good for testing the pack itself; not a verdict on the product.</td></tr></table></section><section id="agents"><p class="eyebrow">07</p><h2>Agents</h2><p><code>--agents stub</code> is the default. Every stage is deterministic and no LLM is used, which suits CI.</p>
+<p><code>--agents external</code> writes <code>agents/*.prompt.md</code> plus the inputs into the report's handoff folder, and stops if the expected artifact is missing. Your own agent does that step, then you continue the run.</p></section><section id="reports"><p class="eyebrow">08</p><h2>Reports and exit codes</h2><p>Reports go to <code>reports/</code> (change it with <code>--out</code>). A failing story is played again to show how often it fails: 3 times for <code>all</code>, <code>triage</code> and <code>report</code>, once for a bare run. Change it with <code>--repro</code>.</p>
+<table><tr><th>Exit</th><th>Meaning</th></tr><tr><td>0</td><td>No product defect.</td></tr><tr><td>1</td><td>At least one defect.</td></tr>
+<tr><td>2</td><td>A gate failed. This includes a failure with no video, a report that says “always” without N of M, a shared evidence hash, or a missing binary stamp.</td></tr></table></section><section id="cli"><p class="eyebrow">09</p><h2>CLI reference</h2><table><tr><th>Option</th><th>What it does</th></tr>
+<tr><td><code>--story &lt;id&gt;[,id]</code></td><td>Run only these stories. The crawl is skipped.</td></tr>
+<tr><td><code>--headed</code></td><td>Show the browser.</td></tr>
+<tr><td><code>--real-seats</code></td><td>Allow real CLIs on PATH. Off by default.</td></tr>
+<tr><td><code>--skip-build</code></td><td>Reuse an existing product binary.</td></tr>
+<tr><td><code>--no-crawl</code></td><td>Skip the exploratory crawl.</td></tr>
+<tr><td><code>--include-fixtures</code></td><td>Also run the recorder self-check.</td></tr>
+<tr><td><code>--delay &lt;ms&gt;</code></td><td>Pause between actions. Default 120.</td></tr>
+<tr><td><code>--reuse-study</code>, <code>--reuse-stories</code>, <code>--reuse-run</code>, <code>--reuse-triage</code></td><td>Reuse earlier output instead of redoing that stage. <code>--run-dir</code> picks the report folder.</td></tr>
+<tr><td><code>--version</code></td><td>Print the version.</td></tr></table>
+<p><code>QAA_PLAN=1</code> prints the parsed config and pack result as JSON instead of running. <code>NO_PROMO=1</code> hides the credit line in <code>--help</code>.</p></section><section id="trouble"><p class="eyebrow">10</p><h2>Troubleshooting</h2><h3>The run stops with exit 2</h3><p>A gate failed. The output names it. Fix the pack (study sections, story schema) or the harness, then run again, using <code>--reuse-*</code> to skip stages that already passed.</p>
+<h3>I only want to check one story</h3><p>Use <code>--story &lt;id&gt; --headed</code> to watch it play.</p></section><section id="faq"><p class="eyebrow">11</p><h2>FAQ</h2><h3>Does it need Node or Python?</h3><p>No. It is a single Rust binary.</p>
+<h3>Does it send data anywhere?</h3><p>Runs and reports stay on your machine. With <code>--agents stub</code> no AI is used at all.</p>
+<h3>Is there a desktop window?</h3><p>The window is being built on Tauri. <span class="plan">planned</span></p></section></div></div>
+<footer><div class="wrap"><span>antiQA is part of <a href="../../">antiApps</a></span><span><a href="../">Back to antiQA</a></span></div></footer></body></html>
