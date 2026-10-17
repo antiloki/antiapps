@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free trial: 10 leads by email · antiHunt</title><meta name="description" content="Tell us what you sell. Within 24 hours we email you up to 10 people who are publicly asking for it, verified one by one.">
+<link rel="icon" href="../../img/antihunt-icon.webp"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../lp.css?v=7b"><link rel="stylesheet" href="../theme.css?v=3">
+<style>
+.tr{max-width:620px;margin:0 auto;padding:0 20px 80px}.tr form{display:grid;gap:14px;margin-top:28px}
+.tr label{font-weight:600;font-size:14px;display:grid;gap:6px}.tr .opt{font-weight:400;opacity:.65}
+.tr input,.tr textarea{font:inherit;padding:11px 13px;border-radius:10px;border:1px solid rgba(127,127,127,.35);background:rgba(127,127,127,.06);color:inherit}
+.tr textarea{min-height:96px;resize:vertical}.tr .btn{justify-self:start;cursor:pointer;border:0}
+.tr .note{font-size:13px;opacity:.75}.tr .msg{padding:14px 16px;border-radius:12px;border:1px solid rgba(127,127,127,.35);display:none}
+.tr .msg.ok{border-color:#3a9a5b}.tr .msg.err{border-color:#d0453b}.tr ol{padding-left:20px;line-height:1.7}
+</style></head><body>
+<nav class="top"><a class="brand" href="../"><img src="../../img/antihunt-icon.webp" alt="">antiHunt</a><div class="links"><a class="hide" href="../#how">How it works</a><a href="../docs/">Docs</a><a href="../../">antiApps</a></div><a class="cta" href="#start">Free trial</a></nav>
+<header class="dh"><div class="wrap"><span class="eyebrow">antiHunt · free trial</span><h1>10 real leads, <em>in your inbox.</em></h1><p class="lede">Tell us what you sell. Within 24 hours we email you up to 10 people who are publicly asking for it right now, each one checked before it reaches you.</p></div></header>
+<main class="tr" id="start">
+<ol><li>Fill in your business below and confirm your email.</li><li>We search public YouTube, X, Instagram and Reddit conversations for people asking for what you sell.</li><li>Every candidate is verified. Only real buyers make the list, with a link to what they wrote.</li></ol>
+<form id="f" novalidate>
+<label>Your email<input id="email" type="email" autocomplete="email" required placeholder="you@company.com"></label>
+<label>Business name<input id="business" required placeholder="Acme Scheduling"></label>
+<label>Website <span class="opt">(optional if you describe it below)</span><input id="url" type="url" inputmode="url" placeholder="https://acme.com"></label>
+<label>What you sell and to whom <span class="opt">(optional if you gave a website)</span><textarea id="description" placeholder="Online booking for barbershops and salons in Brazil"></textarea></label>
+<label>City or region <span class="opt">(only if you serve one area)</span><input id="location" placeholder="São Paulo - SP"></label>
+<div id="ts"></div>
+<button class="btn" id="go" type="submit">Get my free leads →</button>
+<p class="note">One free trial per email and business. We only read public posts; we never contact anyone for you. No card needed.</p>
+</form>
+<div class="msg" id="msg" role="status" aria-live="polite"></div>
+<section id="live" style="display:none" aria-live="polite"><h2 id="lstage" style="margin:24px 0 6px"></h2><p id="lnote" class="note"></p><p id="lcount"></p><ul id="lplat"></ul><p class="note" style="margin-top:12px">Recently read</p><ul id="lsrc"></ul></section>
+</main>
+<footer><div class="wrap"><span>antiHunt is part of <a href="../../">antiApps</a></span><span><a href="../">Back to antiHunt</a></span></div></footer>
+<script>window.AH_API = "";window.AH_TURNSTILE = "";</script><script src="../ah.js?v=1"></script><script src="trial.js?v=2"></script></body></html>
