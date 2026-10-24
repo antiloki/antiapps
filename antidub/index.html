@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>antiDub · antiApps</title><meta name="description" content="A local studio that dubs any book into narrated chapters: a painted, scene-synced video or audio with one cover per chapter, plus synced SRT and WebVTT subtitles. Local voices, local images, no account, no subscription, no cloud.">
+<meta property="og:image" content="../img/antidub-icon.webp"><link rel="icon" href="../img/antidub-icon.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../lp.css?v=7c"><link rel="stylesheet" href="./theme.css?v=1"></head><body>
+<nav class="top"><a class="brand" href="./"><img src="../img/antidub-icon.webp" alt="">antiDub</a><div class="links"><a class="hide" href="#how">How it works</a><a class="hide" href="#modes">Video and audio</a><a class="hide" href="#subtitles">Subtitles</a><a class="hide" href="#own">Privacy</a><a href="../">antiApps</a></div><a class="cta" href="#download">Download 0.1.1</a></nav>
+<header class="hero"><div class="fold"><picture class="plate" aria-hidden="true"><img src="../img/antidub-plate.webp" alt="" decoding="async"></picture>
+<span class="eyebrow">antiDub · book narration studio</span><h1>Give any book a <em>voice.</em></h1><p class="lede">Load a book and antiDub turns it into narrated chapters, one at a time, on your own computer. <b>A painted, scene-synced video or a plain audiobook, with subtitles that stay in sync. No account, no subscription, no cloud.</b></p>
+<div class="cta"><a class="btn ember" href="#download">Download 0.1.1</a> <a class="btn ghost" href="#how">See how it works</a></div><a class="scrollcue" href="#how"><span>scroll</span><i></i></a></div></header>
+
+<section id="how"><div class="wrap"><p class="eyebrow rv">How it works</p><h2 class="rv">Load a book. Render a chapter. Export.</h2><p class="fine rv">Every step is a small, tested skill that runs on your machine. One chapter renders at a time, with a live preview, and any chapter can be run again.</p>
+<div class="steps"><div class="step"><b>01</b><h3>Load any book</h3><p>Plain text, Markdown, USFM or EPUB. antiDub splits it into chapters and sentences, and keeps the title, author and language you set.</p></div>
+<div class="step"><b>02</b><h3>Render one chapter</h3><p>A local voice reads it with human pacing: pauses at sentence and verse ends, a slightly varied pace, loudness levelled to −18 LUFS. A local image model paints the scenes. Watch it build, then re-roll an image or re-run the chapter.</p></div>
+<div class="step"><b>03</b><h3>Export a pack</h3><p>Video (MP4) or audio (M4A), two SRT files, WebVTT, a <code>sync.json</code> timeline, the text and the cover. Files you keep, in open formats.</p></div></div></div></section>
+
+<section class="statement"><div class="wrap"><h2><span class="w">Your</span> <span class="w">book.</span> <span class="w">Your</span> <span class="w"><em>voice.</em></span> <span class="w">Your</span> <span class="w">machine.</span></h2></div></section>
+
+<section id="modes"><div class="wrap"><p class="eyebrow rv">Two ways to dub</p><h2 class="rv">A painted film, or an audiobook.</h2><p class="fine rv">Pick per book, and switch any time. Both come from the same narration and the same sentence timings.</p>
+<div class="modes">
+<article class="mode video rv"><div class="pic"><img src="media/slide-01.webp" alt="" width="768" height="432"><img src="media/slide-02.webp" alt="" width="768" height="432"><span class="tag">video</span><span class="sub-line">Assim foram acabados os céus e a terra, com todo o seu exército.</span></div>
+<div class="txt"><h3><b>01</b>Video</h3><p>A slideshow of painted scenes cut on sentence starts, with a slow zoom and a one-second crossfade, timed to the narration.</p><ul><li>Warm painterly style from DreamShaper 8 with LCM, 768×432, 6 steps</li><li>Zoom in and out alternating, fades at the start and end</li><li>A subtitle track inside the MP4, plus the SRT and WebVTT beside it</li></ul></div></article>
+<article class="mode audio rv"><div class="pic"><img src="media/slide-05.webp" alt="" width="768" height="432"><span class="tag">audio</span><div class="wave" aria-hidden="true"><i style="height:64%"></i><i style="height:34%"></i><i style="height:72%"></i><i style="height:60%"></i><i style="height:18%"></i><i style="height:26%"></i><i style="height:30%"></i><i style="height:26%"></i><i style="height:64%"></i><i style="height:22%"></i><i style="height:18%"></i><i style="height:30%"></i><i style="height:42%"></i><i style="height:18%"></i><i style="height:26%"></i><i style="height:72%"></i><i style="height:72%"></i><i style="height:26%"></i><i style="height:42%"></i><i style="height:26%"></i><i style="height:30%"></i><i style="height:72%"></i><i style="height:18%"></i><i style="height:22%"></i><i style="height:26%"></i><i style="height:42%"></i><i style="height:60%"></i><i style="height:60%"></i><i style="height:22%"></i><i style="height:18%"></i><i style="height:22%"></i><i style="height:22%"></i><i style="height:72%"></i><i style="height:18%"></i><i style="height:42%"></i><i style="height:18%"></i><i style="height:30%"></i><i style="height:34%"></i><i style="height:55%"></i><i style="height:72%"></i><i style="height:34%"></i><i style="height:30%"></i><i style="height:26%"></i><i style="height:22%"></i></div></div>
+<div class="txt"><h3><b>02</b>Audio</h3><p>One painted cover per chapter and the narration as M4A. Light to store, ready for any player, and quick to render.</p><ul><li>AAC audio with the cover embedded</li><li>The same synced SRT, WebVTT and <code>sync.json</code></li><li>Good for long books, phones and car stereos</li></ul></div></article>
+</div>
+<div class="strip rv"><figure><img src="media/slide-01.webp" alt="Genesis 2 scene: Creation finished" loading="lazy" width="768" height="432"><figcaption>0:00 Creation finished</figcaption></figure><figure><img src="media/slide-05.webp" alt="Genesis 2 scene: Man formed from dust" loading="lazy" width="768" height="432"><figcaption>0:51 Man formed from dust</figcaption></figure><figure><img src="media/slide-07.webp" alt="Genesis 2 scene: Tree of life" loading="lazy" width="768" height="432"><figcaption>1:08 Tree of life</figcaption></figure><figure><img src="media/slide-12.webp" alt="Genesis 2 scene: Man tends the garden" loading="lazy" width="768" height="432"><figcaption>1:58 Man tends the garden</figcaption></figure><figure><img src="media/slide-16.webp" alt="Genesis 2 scene: Man names the animals" loading="lazy" width="768" height="432"><figcaption>2:44 Man names the animals</figcaption></figure><figure><img src="media/slide-20.webp" alt="Genesis 2 scene: The two in the garden" loading="lazy" width="768" height="432"><figcaption>3:21 The two in the garden</figcaption></figure></div><p class="cap rv">Genesis 2, painted locally scene by scene and timed to the narration. Times are where each scene starts.</p></div></section>
+
+<section id="subtitles"><div class="wrap"><p class="eyebrow rv">Synced subtitles</p><h2 class="rv">Every sentence, on the second it is spoken.</h2><p class="fine rv">The timings come from the narration itself, not from guessing afterwards. So a player can highlight the line being read, scroll the text in time, or jump to a verse.</p>
+<div class="sync"><pre class="code rv" aria-label="An excerpt of subtitles.sentences.srt"><span class="n">1</span>
+<span class="t">00:00:00,400 --&gt; 00:00:01,807</span>
+Gênesis, capítulo 2.
+
+<span class="n">2</span>
+<span class="t">00:00:03,307 --&gt; 00:00:07,214</span>
+Assim foram acabados os céus e a terra,
+com todo o seu exército.
+
+<span class="n">3</span>
+<span class="t">00:00:08,314 --&gt; 00:00:13,392</span>
+Ora, havendo Deus completado no dia sétimo
+a obra que tinha feito, descansou nesse</pre>
+<ul class="files rv"><li><code>subtitles.sentences.srt</code>One cue per sentence, split where a line would run long.</li><li><code>subtitles.verses.srt</code>One cue per verse, for read-along.</li><li><code>captions.vtt</code>WebVTT for browsers and web players.</li><li><code>sync.json</code>Every piece with start, end, text and verse, for apps that want the full timeline.</li><li><code>text.json</code> and the cover, so a reader app needs nothing else.</li></ul></div></div></section>
+
+<section id="studio"><div class="wrap"><p class="eyebrow rv">The studio</p><h2 class="rv">One chapter at a time, in plain sight.</h2><p class="fine rv">Narrate, plan scenes, paint, assemble and export, each with its own status, cache and log. Change a prompt, re-roll a picture, or re-run from any step.</p>
+<div class="shot rv"><img src="media/studio.webp" alt="antiDub studio design: chapter workspace with the preview, scene list, prompt and image candidates" width="1440" height="900" loading="lazy"></div>
+<div class="pairs"><div class="shot rv"><img src="media/book.webp" alt="antiDub studio design: a book with its chapters and render status" width="1440" height="900" loading="lazy"></div><div class="shot rv"><img src="media/settings.webp" alt="antiDub studio design: settings for the voice and image engines" width="1440" height="900" loading="lazy"></div></div>
+<p class="cap rv">Studio design previews. The 0.1.1 window is simpler and is catching up.</p></div></section>
+
+<section id="own"><div class="wrap"><p class="eyebrow rv">Privacy and ownership</p><h2 class="rv">Nobody's server reads your book.</h2>
+<div class="own"><div class="rv"><b class="k">anti-cloud</b><h3>It all runs here</h3><p>The voice (Kokoro), the pictures (Stable Diffusion through stable-diffusion.cpp) and ffmpeg all run on your computer. Once the models are on disk, it works offline.</p></div>
+<div class="rv"><b class="k">anti-subscription</b><h3>No account, no meter</h3><p>No sign-up, no credits per minute of audio, no monthly plan. Render a chapter ten times if you want.</p></div>
+<div class="rv"><b class="k">anti-tracking</b><h3>Your files, your disk</h3><p>Books, renders and the database live in <code>~/.local/share/antidub</code>. Nothing is uploaded. Exports are MP4, M4A, SRT, VTT and JSON you can open anywhere.</p></div></div>
+<p class="fine rv">Before an imported book can be exported, you confirm it is public domain or that you own the rights. Settings pick the voice and point antiDub at your own voice and image engines.</p></div></section>
+
+<section id="status"><div class="wrap"><p class="eyebrow rv">What runs today</p><h2 class="rv">Honest about where it is.</h2><ul class="status">
+<li>0.1.1 is a Linux x86_64 pre-release: a <code>.deb</code> and an AppImage. Windows and macOS were not built.</li>
+<li>Kokoro narration is built in. Download its two model files once; until then you hear a labelled preview voice.</li>
+<li>Pictures need <code>sd-server</code> (stable-diffusion.cpp) and the DreamShaper 8 and LCM-LoRA weights. A GPU makes it quick; on a CPU, expect about 35 seconds per image.</li>
+<li>Video and audio modes, synced SRT, WebVTT and <code>sync.json</code>, chapter re-runs, re-rolls and Cancel</li>
+<li>Import of txt, Markdown, USFM and EPUB, with title, author and language</li>
+<li>Portuguese books (voices Alex and Dora) and English books today. Other languages are not tested yet.</li>
+<li>Scenes are planned by built-in rules. A local language model planner is next.</li>
+<li>A companion viewer app, with watch mode and read-along, is planned.</li></ul></div></section>
+
+<section class="get" id="download"><div class="wrap"><img class="icon rv" src="../img/antidub-icon.webp" alt="antiDub icon, after Greuze's Reading the Bible"><h2 class="rv">Download 0.1.1.</h2><p class="sub rv">A pre-release for Linux x86_64. Install the <code>.deb</code> with <code>sudo apt install ./antiDub_0.1.1_amd64.deb</code>, or make the AppImage executable and run it. Then open Library and choose Import Genesis 2 sample.</p>
+<div class="btns rv"><a class="btn" href="https://github.com/antiloki/antiDub/releases/download/v0.1.1/antiDub_0.1.1_amd64.deb">Linux · .deb →</a><a class="btn" href="https://github.com/antiloki/antiDub/releases/download/v0.1.1/antiDub_0.1.1_amd64.AppImage">Linux · AppImage →</a></div>
+<div class="btns rv"><a class="btn ghost" href="https://github.com/antiloki/antiDub/releases/tag/v0.1.1">Release notes</a><a class="btn ghost" href="../">See the anti family</a></div>
+<ul class="req rv"><li><code>ffmpeg</code> and <code>espeak-ng</code> from your package manager</li><li>Kokoro: <code>kokoro-v1.0.onnx</code> and <code>voices-v1.0.bin</code> in <code>~/.local/share/antidub/models/</code></li><li>Images: <code>sd-server</code> on your PATH, plus <code>dreamshaper_8.safetensors</code> and <code>lcm-lora-sdv1-5.safetensors</code> in the same models folder</li><li>The <code>.deb</code> needs <code>libwebkit2gtk-4.1-0</code> and <code>libgtk-3-0</code>. The AppImage needs <code>libfuse2</code>.</li></ul>
+<p class="sub rv" style="margin-top:18px"><code>antiDub_0.1.1_amd64.deb</code> SHA256 <code>a96d78c743a42609e1244ddf13949068f03c28f99bad8628bfd822d1592df74c</code></p>
+<p class="sub rv"><code>antiDub_0.1.1_amd64.AppImage</code> SHA256 <code>b4801a106523286e72c595c86b3d8dc9e08c2558276dcf01d792e09f8907a19b</code></p>
+<p class="credit">Icon and art after Greuze, Reading the Bible (1755), re-engraved.</p></div></section>
+<footer><div class="wrap"><span>antiDub is part of <a href="../">antiApps</a></span><span><a href="https://antiloki.com/">antiloki</a> · <a href="../antihunt/">antihunt</a> · <a href="../antipost/">antipost</a> · <a href="../antibot/">antibot</a> · <a href="../antiqa/">antiqa</a> · <a href="../antidrive/">antidrive</a></span></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script><script src="../lp.js?v=7b"></script></body></html>
