@@ -52,7 +52,8 @@ html.m .hero.in .cta{opacity:1;transform:none;transition-delay:.75s}
 @keyframes tbar{to{width:100%}}
 .tour-stage{position:sticky;top:84px;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--panel);aspect-ratio:8/5;box-shadow:0 30px 80px rgba(0,0,0,.45)}
 .tour-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease}
-.tour-stage video.on{opacity:1}
+.tour-stage video.was{opacity:1;z-index:1;transition:none}
+.tour-stage video.on{opacity:1;z-index:2}
 .tour-steps{align-content:start}
 @media(max-width:860px){.tour{grid-template-columns:1fr}.tour-stage{position:sticky;top:64px;z-index:2;order:-1}}
 @media(prefers-reduced-motion:reduce){.tstep li{opacity:1;transform:none}.tstep ul{transition:none}.tstep.on .bar{animation:none;width:100%}.btn:after,.top .cta:after{display:none}}

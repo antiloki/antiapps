@@ -11,8 +11,21 @@
   if(tour){
     var steps=[].slice.call(tour.querySelectorAll('.tstep')),vids=[].slice.call(tour.querySelectorAll('video')),cur=0,visible=false,timer=null;
     function load(v){if(v.dataset.loaded)return;[].slice.call(v.querySelectorAll('source[data-src]')).forEach(function(s){s.src=s.dataset.src});v.load();v.dataset.loaded=1}
+    // the clip that is showing stays fully opaque underneath until the next one has a frame and has faded in on top,
+    // so the panel is never empty (no fading both out over the background, no blank before the first frame)
+    var front=null,fadeT=null;
+    function swap(i){var v=vids[i];if(!v)return;clearTimeout(fadeT);load(v);
+      var prev=front&&front!==v?front:null;front=v;
+      vids.forEach(function(o){if(o!==v&&o!==prev){o.classList.remove('on','was');o.pause()}});
+      if(prev){prev.classList.remove('on');prev.classList.add('was')}
+      try{v.currentTime=0}catch(e){}
+      if(visible&&!reduce)v.play().catch(function(){});
+      function reveal(){if(front!==v)return;v.classList.remove('was');v.classList.add('on');
+        if(prev)fadeT=setTimeout(function(){if(front===v){prev.classList.remove('was');prev.pause()}},500)}
+      if(!prev||v.readyState>=2)reveal();
+      else{var done=false,go=function(){if(done)return;done=true;v.removeEventListener('loadeddata',go);reveal()};v.addEventListener('loadeddata',go);setTimeout(go,1500)}}
     function show(i,user){cur=i;steps.forEach(function(s,k){s.classList.toggle('on',k===i);s.setAttribute('aria-expanded',k===i)});
-      vids.forEach(function(v,k){if(k===i){load(v);v.classList.add('on');v.currentTime=0;if(visible&&!reduce)v.play().catch(function(){})}else{v.classList.remove('on');v.pause()}});
+      swap(i);
       if(vids[i+1])load(vids[i+1]);
       clearTimeout(timer);if(visible&&!reduce)timer=setTimeout(function(){show((cur+1)%steps.length)},user?12000:6000);
       steps[i].style.setProperty('--dur',(user?12:6)+'s');

@@ -16,10 +16,13 @@ const Hatch: React.FC = () => (
   </svg>
 );
 
-const ShotView: React.FC<{s: Shot}> = ({s}) => {
-  const f = useCurrentFrame();
+// A shot fades in on top of the previous one, which stays fully opaque underneath, so the
+// window is never empty or dimmed. The first shot is already in at frame 0.
+const ShotView: React.FC<{s: Shot; at?: number; fade?: number}> = ({s, at, fade}) => {
+  const cf = useCurrentFrame();
+  const f = at ?? cf;
   const local = f - s.from, len = s.to - s.from;
-  const opacity = interpolate(local, [0, 8, len - 6, len], [0, 1, 1, s.to >= 180 ? 1 : 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const opacity = fade ?? (s.from <= 0 ? 1 : interpolate(local, [0, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}));
   const [cx, cy, z0, z1] = s.zoom ?? [640, 400, 1, 1.05];
   const z = interpolate(local, [0, len], [z0, z1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.inOut(Easing.cubic)});
   const scale = (FW / SW) * z;
@@ -51,32 +54,34 @@ const ShotView: React.FC<{s: Shot}> = ({s}) => {
 export const Clip: React.FC<{clip: ClipDef}> = ({clip}) => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const win = spring({frame: f, fps, config: {damping: 18, mass: 0.7}});
-  const loopOut = interpolate(f, [168, 180], [1, 0], {extrapolateLeft: 'clamp'}); // fade to loop cleanly
+  // no entrance and no fade to black: the last 8 frames crossfade back into the first shot so the loop is seamless
+  const loopIn = interpolate(f, [172, 180], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const chipsOut = 1 - loopIn;
   return (
     <AbsoluteFill style={{background: C.bg, fontFamily: '"IBM Plex Sans",sans-serif'}}>
       <Hatch />
-      <div style={{position: 'absolute', left: 80, top: 22, color: C.redText, font: '500 13px "JetBrains Mono",monospace', letterSpacing: '.14em', textTransform: 'uppercase', opacity: interpolate(f, [0, 10], [0, 1])}}>{clip.title}</div>
+      <div style={{position: 'absolute', left: 80, top: 22, color: C.redText, font: '500 13px "JetBrains Mono",monospace', letterSpacing: '.14em', textTransform: 'uppercase', }}>{clip.title}</div>
       <div style={{position: 'absolute', left: FX, top: FY, width: FW, height: FH, borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.rule}`, background: C.panel,
-        boxShadow: '0 30px 80px rgba(0,0,0,.55)', transform: `translateY(${(1 - win) * 30}px) scale(${0.96 + win * 0.04})`, opacity: win * loopOut}}>
-        {clip.shots.map((s, i) => (f >= s.from - 1 && f <= s.to + 1 ? <ShotView key={i} s={s} /> : null))}
+        boxShadow: '0 30px 80px rgba(0,0,0,.55)', }}>
+        {clip.shots.map((s, i) => (f >= s.from - 1 && (i === clip.shots.length - 1 || f <= clip.shots[i + 1].from + 9) ? <ShotView key={i} s={s} /> : null))}
         {(clip.insets ?? []).map((n, i) => {
           const p = spring({frame: f - n.from, fps, config: {damping: 16}});
-          return <Img key={i} src={staticFile(n.img)} style={{position: 'absolute', left: n.x * (FW / 960), top: n.y * (FH / 600), width: n.w, borderRadius: 10, border: `1px solid ${C.rule}`, boxShadow: '0 20px 50px rgba(0,0,0,.6)', opacity: p, transform: `translateX(${(1 - p) * 60}px)`}} />;
+          return <Img key={i} src={staticFile(n.img)} style={{position: 'absolute', left: n.x * (FW / 960), top: n.y * (FH / 600), width: n.w, borderRadius: 10, border: `1px solid ${C.rule}`, boxShadow: '0 20px 50px rgba(0,0,0,.6)', opacity: p * chipsOut, transform: `translateX(${(1 - p) * 60}px)`}} />;
         })}
         {(clip.typed ?? []).map((t, i) => {
           const n = Math.max(0, Math.floor((f - t.from) * 1.1));
           const o = interpolate(f - t.from, [0, 6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
           const agent = t.who === 'Agent';
           return (
-            <div key={i} style={{position: 'absolute', left: t.x * (FW / 960) - 60, top: t.y * (FH / 600) - 40, width: t.w, opacity: o, background: agent ? 'rgba(179,23,31,.14)' : C.bg, border: `1px solid ${agent ? C.red : C.rule}`, borderRadius: 10, padding: '10px 14px', color: C.ink, fontSize: 16}}>
+            <div key={i} style={{position: 'absolute', left: t.x * (FW / 960) - 60, top: t.y * (FH / 600) - 40, width: t.w, opacity: o * chipsOut, background: agent ? 'rgba(179,23,31,.14)' : C.bg, border: `1px solid ${agent ? C.red : C.rule}`, borderRadius: 10, padding: '10px 14px', color: C.ink, fontSize: 16}}>
               <div style={{font: '500 11px "JetBrains Mono",monospace', color: agent ? C.redText : C.dim, letterSpacing: '.1em', textTransform: 'uppercase', marginBottom: 4}}>{t.who}</div>
               {t.text.slice(0, n)}<span style={{opacity: n < t.text.length && f % 16 < 8 ? 1 : 0}}>▍</span>
             </div>
           );
         })}
+        {loopIn > 0 ? <ShotView s={clip.shots[0]} at={0} fade={loopIn} /> : null}
       </div>
-      <div style={{position: 'absolute', left: 40, right: 40, top: FY + FH + 12, display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center', opacity: loopOut}}>
+      <div style={{position: 'absolute', left: 40, right: 40, top: FY + FH + 12, display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center', opacity: chipsOut}}>
         {clip.chips.map((c, i) => {
           const p = spring({frame: f - c.from, fps, config: {damping: 15, mass: 0.6}});
           const active = f >= c.from && (i === clip.chips.length - 1 || f < clip.chips[i + 1].from);
