@@ -34,26 +34,4 @@ html.m .hero.in .cta{opacity:1;transform:none;transition-delay:.75s}
 .btn.ghost:hover{box-shadow:none;border-color:var(--ember2)}
 .btn:not(.ghost):after,.top .cta:after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-18deg);transition:left .6s var(--ease)}
 .btn:not(.ghost):hover:after,.top .cta:hover:after{left:120%}
-/* feature tour */
-.tour{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);gap:34px;margin-top:34px;align-items:start}
-.tour-steps{display:grid;gap:8px}
-.tstep{border:1px solid var(--rule);background:var(--panel);border-radius:14px;padding:14px 16px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;width:100%;position:relative;overflow:hidden;transition:border-color .3s,background-color .3s}
-.tstep h3{font:700 17px var(--display);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
-.tstep h3 b{font:500 11px var(--mono);color:var(--ember2)}
-.tstep ul{list-style:none;display:grid;gap:5px;margin-top:0;max-height:0;overflow:hidden;transition:max-height .5s var(--ease),margin-top .4s}
-.tstep li{color:var(--dim);font-size:14.5px;line-height:1.5;padding-left:14px;position:relative;opacity:0;transform:translateY(8px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
-.tstep li:before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--ember)}
-.tstep.on{border-color:var(--ember);background:linear-gradient(0deg,var(--soft),var(--soft)),var(--panel)}
-.tstep.on ul{max-height:340px;margin-top:10px}
-.tstep.on li{opacity:1;transform:none}
-.tstep .bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--ember)}
-.tstep.on .bar{animation:tbar var(--dur,6s) linear forwards}
-.tour.paused .tstep.on .bar{animation-play-state:paused}
-@keyframes tbar{to{width:100%}}
-.tour-stage{position:sticky;top:84px;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--panel);aspect-ratio:8/5;box-shadow:0 30px 80px rgba(0,0,0,.45)}
-.tour-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease}
-.tour-stage video.was{opacity:1;z-index:1;transition:none}
-.tour-stage video.on{opacity:1;z-index:2}
-.tour-steps{align-content:start}
-@media(max-width:860px){.tour{grid-template-columns:1fr}.tour-stage{position:sticky;top:64px;z-index:2;order:-1}}
-@media(prefers-reduced-motion:reduce){.tstep li{opacity:1;transform:none}.tstep ul{transition:none}.tstep.on .bar{animation:none;width:100%}.btn:after,.top .cta:after{display:none}}
+@media(prefers-reduced-motion:reduce){.btn:after,.top .cta:after{display:none}}
