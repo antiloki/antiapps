@@ -1,0 +1,66 @@
+/* antiDub palette, sampled from the Greuze Reading the Bible plate: smoky umber, candle-lit parchment
+   and the anti red on the open book. Overrides lp.css for antiDub pages only. */
+:root{--bg:#1b1916;--panel:#24211d;--rule:#36322c;--rule2:#4a443c;--ink:#ece6dc;--dim:#a79e92;--muted:#8d8579;--ember:#d2302c;--ember2:#ff4a3d;--soft:rgba(210,48,44,.15);--btn-ink:#fff6f2}
+html,body{background:var(--bg);color:var(--ink)}
+.top{background:rgba(27,25,22,.88)}
+.top .cta,.btn.ember,.btn:not(.ghost){background:var(--ember);border-color:var(--ember);color:var(--btn-ink)}
+.top .cta:hover,.btn:not(.ghost):hover{background:#b8231f}
+.btn.ghost{border-color:var(--rule2);color:var(--ink)}
+.hero .fold::before{background:radial-gradient(ellipse at 50% 58%,rgba(27,25,22,.66) 0%,rgba(27,25,22,.38) 54%,rgba(27,25,22,0) 78%)}
+.lede,.step p,.sub,.status li{color:var(--ink)}
+.hero .fold .lede b{color:#fff6f2}
+.note,.credit{color:var(--dim)}
+.eyebrow,.hero .eyebrow,h1 em,.hero h1 em,.statement em,.step b,.status li code{color:var(--ember2)}
+.scrollcue i{background:linear-gradient(var(--ember2),transparent)}
+a:hover{color:var(--ember2)}
+footer a{color:var(--dim)}
+.fine{color:var(--dim);font-size:14px;max-width:76ch;margin-top:14px}.fine b{color:var(--ink)}
+/* modes */
+.modes{display:grid;gap:16px;margin-top:34px}
+@media(min-width:860px){.modes{grid-template-columns:1fr 1fr}}
+.mode{background:var(--panel);border:1px solid var(--rule);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.mode .pic{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.mode .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mode.video .pic img{animation:kb 18s ease-in-out infinite alternate}
+.mode.video .pic img+img{opacity:0;animation:kb 18s ease-in-out infinite alternate,xf 12s ease-in-out infinite}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+@keyframes xf{0%,40%{opacity:0}50%,90%{opacity:1}100%{opacity:0}}
+.mode .pic .sub-line{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);max-width:82%;background:rgba(10,9,8,.72);color:#fff;font:500 14px/1.35 var(--body);padding:6px 12px;border-radius:6px;text-align:center}
+.mode .pic .tag{position:absolute;left:10px;top:10px;font:500 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:rgba(10,9,8,.7);color:var(--ember2);border:1px solid rgba(255,74,61,.4);border-radius:6px;padding:3px 7px}
+.mode.audio .pic img{filter:saturate(.9)}
+.mode .wave{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;align-items:flex-end;gap:3px;padding:0 14px 12px;background:linear-gradient(transparent,rgba(10,9,8,.85))}
+.mode .wave i{flex:1;background:var(--ember2);opacity:.85;border-radius:2px}
+.mode .txt{padding:20px 22px 22px}
+.mode h3{font:700 22px var(--display);margin-bottom:6px}.mode h3 b{font:600 12px var(--mono);color:var(--ember2);margin-right:10px;vertical-align:3px}
+.mode p{color:var(--ink);font-size:15px}
+.mode ul{margin:12px 0 0 18px;color:var(--dim);font-size:14.5px}.mode li{margin:4px 0}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+@media(min-width:860px){.strip{grid-template-columns:repeat(6,1fr)}}
+.strip figure{margin:0}.strip img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;border:1px solid var(--rule);display:block}
+.strip figcaption{font:11px var(--mono);color:var(--muted);margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* subtitles */
+.sync{display:grid;gap:18px;margin-top:30px;align-items:start}
+@media(min-width:860px){.sync{grid-template-columns:1.05fr 1fr}}
+.code{font:13px/1.6 var(--mono);background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;color:var(--ink);overflow:auto;white-space:pre}
+.code .n{color:var(--muted)}.code .t{color:var(--ember2)}
+.files{list-style:none;display:grid;gap:8px}
+.files li{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:11px 14px;font-size:14.5px}
+.files code{font:12.5px var(--mono);color:var(--ember2);margin-right:8px}
+/* studio shot */
+.shot{margin-top:30px;border:1px solid var(--rule2);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.shot img{display:block;width:100%;height:auto}
+.cap{font:11px var(--mono);color:var(--muted);margin-top:10px}
+.pairs{display:grid;gap:14px;margin-top:14px}@media(min-width:860px){.pairs{grid-template-columns:1fr 1fr}}
+.pairs .shot{margin-top:0}
+/* ownership */
+.own{display:grid;gap:14px;margin-top:34px}@media(min-width:820px){.own{grid-template-columns:repeat(3,1fr)}}
+.own div{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:22px}
+.own h3{font:700 19px var(--display);margin-bottom:6px}.own p{color:var(--ink);font-size:15px}
+.own b.k{display:block;font:600 12px var(--mono);color:var(--ember2);margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase}
+.req{margin:22px auto 0;max-width:720px;text-align:left}
+.req li{list-style:none;border-top:1px solid var(--rule);padding:10px 2px;font-size:14.5px;color:var(--ink)}
+.req li code{font:12.5px var(--mono);color:var(--ember2)}
+.get .sub code,.fine code{font:12.5px var(--mono);color:var(--ember2);word-break:break-all}
+@media(prefers-reduced-motion:reduce){.mode.video .pic img{animation:none!important}.mode.video .pic img+img{display:none}}
+.strip img{height:auto}.strip>*{min-width:0}.sync>*,.modes>*,.pairs>*{min-width:0}
+.hero .fold .lede{color:var(--ink)}

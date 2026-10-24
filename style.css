@@ -9,7 +9,7 @@ a{color:inherit;text-decoration:none}em{font-style:italic;color:var(--red2)}
 .drop{width:10px;height:13px;background:var(--red);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;display:inline-block}
 .navcta{font-size:13px;border:1px solid var(--line);padding:6px 12px;border-radius:999px;color:var(--mut)}
 .hero{min-height:100svh;position:relative;display:grid;place-items:center;padding:90px 20px 60px;overflow:hidden}
-.mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;opacity:.28;filter:grayscale(.3) contrast(1.1)}
+.mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;opacity:.28;filter:grayscale(.3) contrast(1.1)}
 .mosaic img{width:100%;height:100%;object-fit:cover}
 .hero:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(11,11,13,.55),var(--bg) 75%)}
 .hero-txt{position:relative;z-index:2;max-width:900px;text-align:center}
@@ -46,7 +46,7 @@ h2{font:800 clamp(48px,10vw,110px)/1 "Playfair Display",serif;letter-spacing:-.0
 .tile:hover img{transform:translateY(-4px) rotate(-2deg)}
 footer{padding:120px 22px 60px;text-align:center;border-top:1px solid var(--line)}footer .small{margin:24px auto 0;font-size:13px}
 @media(min-width:860px){.inner{grid-template-columns:1fr 1.1fr;gap:70px}.app:nth-of-type(even) .icon{order:2}.icon{width:100%;max-width:440px}.grid{grid-template-columns:repeat(3,1fr)}}
-@media(min-width:1100px){.grid{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:1100px){.grid{grid-template-columns:repeat(7,1fr)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 .iconwrap{}
