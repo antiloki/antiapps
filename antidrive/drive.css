@@ -16,3 +16,6 @@ html,body{background:var(--bg);color:var(--ink)}
 a:hover{color:var(--ember2)}
 footer a{color:var(--dim)}
 .body a,.fine a,.src a{color:var(--ember2)}.toc a:hover{color:var(--ember2)}
+/* clip instead of hidden so position:sticky keeps working (hidden turns body into a scroll container) */
+html,body{overflow-x:clip}
+@media(max-width:430px){.top{gap:8px}.top .links{gap:12px}.top .links a{font-size:13px}.top .cta{white-space:nowrap;padding:8px 12px;font-size:13px}.top .brand{font-size:17px}}

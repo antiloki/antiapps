@@ -18,8 +18,16 @@
       steps[i].style.setProperty('--dur',(user?12:6)+'s');
       var b=steps[i].querySelector('.bar');if(b){b.style.animation='none';b.offsetWidth;b.style.animation=''}}
     steps.forEach(function(s,i){s.addEventListener('click',function(){show(i,true)})});
-    new IntersectionObserver(function(es){es.forEach(function(e){visible=e.isIntersecting;tour.classList.toggle('paused',!visible);
-      if(visible)show(cur);else{clearTimeout(timer);vids.forEach(function(v){v.pause()})}})},{threshold:.35}).observe(tour);
+    // reserve the tallest open state so switching groups never pushes the page around
+    var list=tour.querySelector('.tour-steps');
+    function reserve(){if(!list)return;list.style.minHeight='';var gap=parseFloat(getComputedStyle(list).rowGap)||0,base=0,extra=0;
+      steps.forEach(function(s){var u=s.querySelector('ul'),uh=u?u.scrollHeight:0;base+=s.offsetHeight-(u?u.offsetHeight+parseFloat(getComputedStyle(u).marginTop||0):0);extra=Math.max(extra,uh+10)});
+      list.style.minHeight=Math.ceil(base+extra+gap*(steps.length-1))+'px'}
+    reserve();addEventListener('resize',reserve);if(d.fonts&&d.fonts.ready)d.fonts.ready.then(reserve);
+    // auto-advance only while the demo itself is on screen
+    var stage=tour.querySelector('.tour-stage')||tour;
+    new IntersectionObserver(function(es){es.forEach(function(e){var was=visible;visible=e.isIntersecting;tour.classList.toggle('paused',!visible);
+      if(visible&&!was)show(cur);else if(!visible){clearTimeout(timer);vids.forEach(function(v){v.pause()})}})},{threshold:.5}).observe(stage);
     show(0);
   }
   if(reduce)return;
@@ -37,6 +45,9 @@
   [].slice.call(d.querySelectorAll('.rv,.eyebrow,.fine,.src,.tour-stage,.tstep,.get .icon,.get .sub')).forEach(function(e,i){if(!e.closest('.hero'))e.classList.add('bi')});
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
   [].slice.call(d.querySelectorAll('.bi,.split,.hero')).forEach(function(e){io.observe(e)});
+  // the last rows on a page can never cross the -8% line, so reveal whatever is left once the bottom is reached
+  function flush(){if(innerHeight+scrollY<root.scrollHeight-4)return;[].slice.call(d.querySelectorAll('.bi:not(.in),.split:not(.in)')).forEach(function(e){e.classList.add('in');io.unobserve(e)})}
+  addEventListener('scroll',flush,{passive:true});addEventListener('load',flush);
   // hero parallax (desktop only, cheap transform)
   var plate=d.querySelector('.hero .plate');
   if(plate&&matchMedia('(min-width: 861px)').matches){var tk=false;addEventListener('scroll',function(){if(tk)return;tk=true;requestAnimationFrame(function(){var y=Math.min(scrollY,900);plate.style.translate='0 '+(y*.18)+'px';plate.style.scale=String(1+y*.00012);tk=false})},{passive:true})}
