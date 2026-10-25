@@ -1,6 +1,7 @@
-// One continuous tape of app cards. It runs flat across the hero strip, curls off
-// the right edge, and from the left end bends down and descends the whole page
-// behind the content, then bends again into the "whole family" strip at the bottom.
+// One continuous tape of app cards. It runs flat across the hero strip and curls off the
+// right edge; from the left end it bends down and descends the whole page behind the
+// content, then bends again into the "whole family" strip at the bottom, whose right end
+// bends down once more and runs down the right edge to the end of the page.
 // Cards flow along it without a break. Where it bends it lifts toward the camera
 // and smears with colour split; in the flat parts it is one crisp texture sample.
 // Raw WebGL, no dependencies. The ribbon is built once in page coordinates; each
@@ -90,7 +91,7 @@
   const vbo = gl.createBuffer(), ibo = gl.createBuffer(), tex = gl.createTexture();
 
   let W = 0, H = 0, cardH = 0, count = 0, period = 1, images = [], atlasKey = '', built = '', indexType = 0;
-  let pc1 = 0, pc2 = 0, xc = 0, flatR = 0; // anchors need: path position of each strip's centre, clickable x range
+  let pc1 = 0, pc2 = 0, xc = 0, flatR1 = 0, flatR2 = 0; // anchors need: path position of each strip's centre, clickable x ranges
 
   // ---------- atlas: one period of cards, premultiplied ----------
   function buildAtlas(ch, dpr) {
@@ -157,11 +158,11 @@
     return out;
   }
 
-  function build(Y1, Y2) {
+  function build(Y1, Y2, docH) {
     const w = cardH, half = W / 2, D = W * 1.1;
     const XL = w / 2 + 8, R = w * 1.05, Zb = R * .62, DIM = .7;
     xc = XL + R;
-    flatR = half + half * .66;
+    flatR1 = half + half * .66;
 
     const S = []; let p = 0, prev = null;
     // x, y, z (page px, y down), up vector, normal, curl, dim, flip, projection origin.
@@ -220,12 +221,32 @@
         .7 * Math.sin(Math.PI * t), DIM * (1 - sstep(t)), sstep(Math.max(0, Math.min(1, (t - .2) / .6))),
         XL + R, yBot, i ? R * Math.PI / 2 / n2 : Math.max(0, yBot - yLast));
     }
-    // 6. flat rightward across the whole-family strip, then its right curl
-    for (let x = xc + COARSE; x < half; x += COARSE) push(x, Y2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, half, Y2, COARSE);
-    pc2 = push(half, Y2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, half, Y2, COARSE);
-    for (let i = 1; i < right.length; i++) {
-      const q = right[i];
-      push(half + q.cx, Y2 - q.cy, q.cz, -q.ux, q.uy, -q.uz, q.nx, -q.ny, q.nz, q.d, 0, 1, half, Y2, FINE);
+    // 6. flat rightward across the whole-family strip to the start of the third bend
+    const XR = W - XL, xc3 = XR - R;            // right-edge run mirrors the left one
+    flatR2 = xc3;
+    for (let x = xc + COARSE; x < half; x += COARSE) push(x, Y2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, half, Y2);
+    pc2 = push(half, Y2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, half, Y2);
+    for (let x = half + COARSE; x < xc3; x += COARSE) push(x, Y2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, half, Y2);
+    // 7. third bend: right -> down (instead of lifting off the top), then down the right edge
+    const n3 = Math.ceil(R * Math.PI / 2 / FINE);
+    for (let i = 0; i <= n3; i++) {
+      const t = i / n3, th = t * Math.PI / 2, sn = Math.sin(th), cs = Math.cos(th);
+      const tz = 2 * Zb * Math.cos(Math.PI * t) / R;
+      const Tx = cs, Ty = sn, Ux = -sn, Uy = cs;
+      push(xc3 + R * sn, Y2 + R - R * cs, Zb * Math.sin(Math.PI * t), Ux, Uy, 0,
+        -tz * Uy, tz * Ux, Tx * Uy - Ty * Ux,
+        .7 * Math.sin(Math.PI * t), DIM * sstep(t), 1, xc3, Y2 + R);
+    }
+    // 8. down the right side to the end of the page, rippling like the left run
+    const yTop2 = Y2 + R, yEnd = docH + 260;
+    for (let y = yTop2 + FINE; y <= yEnd; y += FINE) {
+      const sy = y - yTop2;
+      const a = sstep(Math.max(0, Math.min(1, sy / 180)));                        // eases in out of the bend
+      const ph = TAU * sy / 640 + 2.2;
+      const z = 100 * a * Math.sin(ph), dzdy = 100 * a * Math.cos(ph) * TAU / 640;
+      const x = XR + 10 * a * Math.sin(TAU * sy / 900 + 3);
+      const curl = a * (.5 + .3 * Math.sin(TAU * sy / 380 + 4));
+      push(x, y, z, -1, 0, 0, 0, -dzdy, 1, curl, DIM, 1, x, y);
     }
 
     // vertices: ROWS+1 across the tape width. Layout: pos3 org2 p v n3 curl dim flip
@@ -259,7 +280,7 @@
 
   // ---------- layout ----------
   const sig = () => [Math.round(s1.getBoundingClientRect().top + scrollY), Math.round(s2.getBoundingClientRect().top + scrollY),
-    Math.round(s1.offsetHeight), innerWidth, innerHeight].join(':');
+    Math.round(s1.offsetHeight), innerWidth, innerHeight, document.documentElement.scrollHeight].join(':');
   function layout() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const r1 = s1.getBoundingClientRect(), r2 = s2.getBoundingClientRect();
@@ -270,7 +291,7 @@
     const key = Math.round(cardH) + ':' + dpr;
     if (key !== atlasKey) { atlasKey = key; buildAtlas(Math.round(cardH), dpr); }
     gl.uniform2f(uRes, W, H); gl.uniform1f(uPeriod, period);
-    const ok = build(r1.top + scrollY + r1.height / 2, r2.top + scrollY + r2.height / 2);
+    const ok = build(r1.top + scrollY + r1.height / 2, r2.top + scrollY + r2.height / 2, document.documentElement.scrollHeight);
     built = sig();
     return ok;
   }
@@ -291,8 +312,8 @@
   }
   function updateLinks() {
     const half = W / 2;
-    place(links1, s1, pc1 + half - scroll, xc, flatR);
-    place(links2, s2, -pc2 + half + scroll, xc, flatR);
+    place(links1, s1, pc1 + half - scroll, xc, flatR1);
+    place(links2, s2, -pc2 + half + scroll, xc, flatR2);
   }
 
   // ---------- loop ----------
