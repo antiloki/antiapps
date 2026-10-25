@@ -10,6 +10,13 @@
   if (!(window.AudioContext || window.webkitAudioContext)) { btn.hidden = true; return; }
 
   const KEY = 'antiapps-sound';
+  // While the browser is holding audio back (it needs a tap/click first) say so, loudly:
+  // on a phone a small nav pill is easy to miss, and scrolling alone never unlocks audio.
+  const coarse = matchMedia('(pointer: coarse)').matches;
+  const hint = document.createElement('div');
+  hint.className = 'snd-hint'; hint.setAttribute('aria-hidden', 'true');
+  hint.innerHTML = '<i></i><i></i><i></i><span>' + (coarse ? 'Tap anywhere for sound' : 'Click anywhere for sound') + '</span>';
+  document.body.appendChild(hint);
   // Sound is on for every new visit. Turning it off is remembered for this session only, so an
   // old "off" (or a different version of the site) can never leave a first-time visitor in silence.
   const store = {
@@ -35,6 +42,7 @@
   function init() {
     if (ctx) return;
     const AC = window.AudioContext || window.webkitAudioContext;
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
     ctx = new AC();
     ctx.onstatechange = ui;
     const comp = ctx.createDynamicsCompressor();
@@ -227,7 +235,8 @@
   function ui() {
     const waiting = on && ctx && ctx.state !== 'running' && !document.hidden;
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    btn.querySelector('span').textContent = !on ? 'Sound off' : waiting ? 'Click to hear' : 'Sound on';
+    btn.querySelector('span').textContent = !on ? 'Sound off' : waiting ? (coarse ? 'Tap to hear' : 'Click to hear') : 'Sound on';
+    hint.classList.toggle('show', !!waiting);
     btn.classList.toggle('on', on && !waiting);
     btn.classList.toggle('ping', !!waiting);
   }
@@ -264,12 +273,13 @@
   // visitor interacts, so: try now, and unlock on the first click, tap or key anywhere.
   if (store.get() !== '0') {
     enable();
+    const EVENTS = ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'mouseup', 'keydown', 'click'];
     const unlock = e => {
       if (e.target.closest && e.target.closest('.snd')) return;       // the pill handles its own click
       if (on && ctx && ctx.state !== 'running') ctx.resume();
-      if (!on || (ctx && ctx.state === 'running')) ['pointerdown', 'keydown', 'touchend', 'click'].forEach(t => removeEventListener(t, unlock, true));
+      if (!on || (ctx && ctx.state === 'running')) EVENTS.forEach(t => removeEventListener(t, unlock, true));
     };
-    ['pointerdown', 'keydown', 'touchend', 'click'].forEach(t => addEventListener(t, unlock, true));
+    EVENTS.forEach(t => addEventListener(t, unlock, true));
   }
   ui();
 })();
