@@ -6,30 +6,6 @@
   var top=d.querySelector('.top');
   function onScroll(){if(top)top.classList.toggle('scrolled',scrollY>12)}
   addEventListener('scroll',onScroll,{passive:true});onScroll();
-  // feature tour: progressive disclosure, auto-advances while visible
-  var tour=d.querySelector('.tour');
-  if(tour){
-    var steps=[].slice.call(tour.querySelectorAll('.tstep')),vids=[].slice.call(tour.querySelectorAll('video')),cur=0,visible=false,timer=null;
-    function load(v){if(v.dataset.loaded)return;[].slice.call(v.querySelectorAll('source[data-src]')).forEach(function(s){s.src=s.dataset.src});v.load();v.dataset.loaded=1}
-    function show(i,user){cur=i;steps.forEach(function(s,k){s.classList.toggle('on',k===i);s.setAttribute('aria-expanded',k===i)});
-      vids.forEach(function(v,k){if(k===i){load(v);v.classList.add('on');v.currentTime=0;if(visible&&!reduce)v.play().catch(function(){})}else{v.classList.remove('on');v.pause()}});
-      if(vids[i+1])load(vids[i+1]);
-      clearTimeout(timer);if(visible&&!reduce)timer=setTimeout(function(){show((cur+1)%steps.length)},user?12000:6000);
-      steps[i].style.setProperty('--dur',(user?12:6)+'s');
-      var b=steps[i].querySelector('.bar');if(b){b.style.animation='none';b.offsetWidth;b.style.animation=''}}
-    steps.forEach(function(s,i){s.addEventListener('click',function(){show(i,true)})});
-    // reserve the tallest open state so switching groups never pushes the page around
-    var list=tour.querySelector('.tour-steps');
-    function reserve(){if(!list)return;list.style.minHeight='';var gap=parseFloat(getComputedStyle(list).rowGap)||0,base=0,extra=0;
-      steps.forEach(function(s){var u=s.querySelector('ul'),uh=u?u.scrollHeight:0;base+=s.offsetHeight-(u?u.offsetHeight+parseFloat(getComputedStyle(u).marginTop||0):0);extra=Math.max(extra,uh+10)});
-      list.style.minHeight=Math.ceil(base+extra+gap*(steps.length-1))+'px'}
-    reserve();addEventListener('resize',reserve);if(d.fonts&&d.fonts.ready)d.fonts.ready.then(reserve);
-    // auto-advance only while the demo itself is on screen
-    var stage=tour.querySelector('.tour-stage')||tour;
-    new IntersectionObserver(function(es){es.forEach(function(e){var was=visible;visible=e.isIntersecting;tour.classList.toggle('paused',!visible);
-      if(visible&&!was)show(cur);else if(!visible){clearTimeout(timer);vids.forEach(function(v){v.pause()})}})},{threshold:.5}).observe(stage);
-    show(0);
-  }
   if(reduce)return;
   root.classList.add('m');
   // split headlines into masked words
@@ -42,7 +18,7 @@
   // stagger groups
   var groups='.steps,.status,.cmp,.btns,.doc .body section,.toc';
   [].slice.call(d.querySelectorAll(groups)).forEach(function(g){[].slice.call(g.children).forEach(function(c,i){if(c.tagName==='H2')return;c.classList.add('bi');c.style.setProperty('--i',Math.min(i,10))})});
-  [].slice.call(d.querySelectorAll('.rv,.eyebrow,.fine,.src,.tour-stage,.tstep,.get .icon,.get .sub')).forEach(function(e,i){if(!e.closest('.hero'))e.classList.add('bi')});
+  [].slice.call(d.querySelectorAll('.rv,.eyebrow,.fine,.src,.get .icon,.get .sub')).forEach(function(e,i){if(!e.closest('.hero'))e.classList.add('bi')});
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
   [].slice.call(d.querySelectorAll('.bi,.split,.hero')).forEach(function(e){io.observe(e)});
   // the last rows on a page can never cross the -8% line, so reveal whatever is left once the bottom is reached
