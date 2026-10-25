@@ -163,10 +163,14 @@
     xc = XL + R;
     flatR = half + half * .66;
 
-    const S = []; let p = 0, first = true;
-    // x, y, z (page px, y down), up vector, normal, curl, dim, flip, projection origin, step from previous sample
-    const push = (x, y, z, ux, uy, uz, nx, ny, nz, curl, dim, flip, ox, oy, ds) => {
-      if (!first) p += ds; first = false;
+    const S = []; let p = 0, prev = null;
+    // x, y, z (page px, y down), up vector, normal, curl, dim, flip, projection origin.
+    // The last argument is a nominal step kept for readability; the texture position p advances by
+    // the real distance between samples. (Using the nominal step left a ~1px jump wherever the
+    // spacing was shorter than nominal, e.g. at the exact middle of the bottom strip.)
+    const push = (x, y, z, ux, uy, uz, nx, ny, nz, curl, dim, flip, ox, oy, _nominalStep) => {
+      if (prev) p += Math.hypot(x - prev[0], y - prev[1], z - prev[2]);
+      prev = [x, y, z];
       const l = Math.hypot(nx, ny, nz) || 1;
       S.push([x, y, z, ux, uy, uz, nx / l, ny / l, nz / l, p, curl, dim, flip, ox, oy]);
       return p;
